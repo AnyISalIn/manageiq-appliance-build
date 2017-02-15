@@ -9,7 +9,7 @@ EOF
 
 pip install --upgrade setuptools
 pip install django==1.8.13 carbon whisper graphite-web django-tagging pytz cairocffi
-pip install twisted --upgrade
+pip install "twisted==16.6.0"
 chmod a+w /opt/graphite/storage &&\
 cp /opt/graphite/conf/carbon.conf.example /opt/graphite/conf/carbon.conf &&\
 cp /opt/graphite/conf/graphite.wsgi.example /opt/graphite/conf/graphite.wsgi &&\
