@@ -1,0 +1,6 @@
+pushd /tmp
+    curl -L http://192.168.20.170/vmware-vix-disklib-distrib.tgz | tar xz
+    cd vmware-vix-disklib-distrib
+    ./vmware-install.pl -d
+    ldconfig -v
+popd
