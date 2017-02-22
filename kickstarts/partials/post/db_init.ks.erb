@@ -26,3 +26,22 @@ EOF
 
 # Finally, enable the service
 systemctl enable appliance-initialize
+
+cat > /bin/vaneq-config.sh <<'EOF'
+#!/bin/bash
+
+read -p 'Input You IP Address: ' ip
+
+pushd /opt/manageiq/vaneq
+    if [ -v ip ]; then
+        cp src/assets/js/config/domain.js.template src/assets/js/config/domain.js
+        sed -i "s/127.0.0.1/${ip}/gi" /opt/manageiq/vaneq/src/assets/js/config/domain.js
+        if [ $? -eq 0 ]; then
+            node build/build.js
+        fi
+    fi
+popd
+EOF
+
+# chmod
+chmod 755 /bin/vaneq-config.sh
