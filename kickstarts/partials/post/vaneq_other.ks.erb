@@ -4,3 +4,9 @@ pushd /tmp
     ./vmware-install.pl -d
     ldconfig -v
 popd
+
+pushd /root
+    git clone https://github.com/rhtconsulting/cfme-rhconsulting-scripts.git
+    cd cfme-rhconsulting-scripts
+    make && make install
+popd
