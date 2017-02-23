@@ -10,3 +10,15 @@ pushd /root
     cd cfme-rhconsulting-scripts
     make && make install
 popd
+
+git clone http://gitlab.vanecloud.com/vanecloud/vqctl.git
+cd vqctl
+make && make install
+
+ln -sv /bin/bash /bin/rbash
+useradd -s /bin/rbash vqctl
+echo vqctl|passwd --stdin vqctl
+echo > /home/vqctl/{.bashrc,.bash_profile}
+echo PATH=/usr/bin/vqctl > /home/vqctl/.bash_profile
+echo PS1='"vaneq -> "' >> /home/vqctl/.bash_profile
+echo "vqctl ALL=(ALL)       NOPASSWD: ALL" >> /etc/sudoers
