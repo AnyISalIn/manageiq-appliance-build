@@ -1,6 +1,11 @@
 # Create a script to initialize appliance on first boot
 cat > /bin/appliance-initialize.sh <<EOF
 #!/bin/sh
+if [[ ! -s /var/www/miq/vmdb/license/vaneQLic  ]]; then
+        pushd /var/www/miq/vmdb/license/
+            python /usr/bin/vaneq-license-generate.py
+        popd
+fi
 [[ -d /var/opt/rh/rh-postgresql94/lib/pgsql/data/base ]] && exit 0
 [[ -s /etc/default/evm ]] && source /etc/default/evm
 echo "Initializing Appliance, please wait ..." > /dev/tty1
