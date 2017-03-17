@@ -24,7 +24,7 @@ echo PS1='"vaneq -> "' >> /home/vqctl/.bash_profile
 echo "vqctl ALL=(ALL)       NOPASSWD: ALL" >> /etc/sudoers
 
 # install ansible api
-git clone https://github.com/VaneCloud/ansible_playbooks.git /var/www/playbooks
+git clone http://gitlab.vanecloud.com/vanecloud/ansible_playbooks.git /var/www/playbooks
 git clone https://github.com/Little-gg/kree
 cd kree
 pip install -r requirements.txt
