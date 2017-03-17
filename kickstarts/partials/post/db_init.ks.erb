@@ -3,7 +3,7 @@ cat > /bin/appliance-initialize.sh <<EOF
 #!/bin/sh
 if [[ ! -s /var/www/miq/vmdb/license/vaneQLic  ]]; then
         pushd /var/www/miq/vmdb/license/
-            python /usr/bin/vaneq-license-generate.py
+            python /usr/bin/vaneq-license-generate.py -l
         popd
 fi
 [[ -d /var/opt/rh/rh-postgresql94/lib/pgsql/data/base ]] && exit 0
