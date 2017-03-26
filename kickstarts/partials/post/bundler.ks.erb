@@ -10,10 +10,20 @@ gem sources --add https://gems.ruby-china.org/ --remove https://rubygems.org/
 gem install bundler -v ">=1.8.4"
 gem install -v '1.9.4' rbvmomi
 
+pushd /root
+    git config --global http.proxy "http://192.168.20.114:8123"
+    git clone https://github.com/rofl0r/proxychains-ng
+    cd proxychains-ng
+    make && make install && make install-config
+    sed -i 's/socks4.*9050/socks5  192.168.20.114 1080/gi' /usr/local/etc/proxychains.conf
+    sed -i '89,91s/^#//' /usr/local/etc/proxychains.conf
+    git config --global --unset http.proxy
+popd
+
 pushd /var/www/miq/vmdb
- bundle config mirror.https://rubygems.org https://gems.ruby-china.org &&  bundle install 
- rm -rf Gemfile.lock && curl -OL http://192.168.20.170/Gemfile.lock
- bundle install
+    /usr/local/bin/proxychains4 bundle install
+    rm -rf Gemfile.lock && curl -OL http://192.168.20.170/Gemfile.lock
+    /usr/local/bin/proxychains4 bundle install
 popd
 
 #pushd /opt/manageiq/manageiq-ui-self_service
