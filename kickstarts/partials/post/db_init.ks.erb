@@ -1,15 +1,15 @@
 # Create a script to initialize appliance on first boot
 cat > /bin/appliance-initialize.sh <<EOF
 #!/bin/sh
-if [[ ! -s /var/www/miq/vmdb/license/vaneQLic  ]]; then
-        pushd /var/www/miq/vmdb/license/
-            python /usr/bin/vaneq-license-generate.py -l
-        popd
-fi
 [[ -d /var/opt/rh/rh-postgresql94/lib/pgsql/data/base ]] && exit 0
 [[ -s /etc/default/evm ]] && source /etc/default/evm
 echo "Initializing Appliance, please wait ..." > /dev/tty1
 cd /var/www/miq/vmdb/ && git reset --hard HEAD
+if [[ ! -s /var/www/miq/vmdb/lib/license/key ]]; then
+        pushd /var/www/miq/vmdb/lib/license
+            ruby vane_free.rb
+        popd
+fi
 appliance_console_cli --region 0 --internal --password smartvm
 EOF
 chmod 755 /bin/appliance-initialize.sh
