@@ -25,6 +25,8 @@ popd
 
 # VaneQ Frontend
 pushd /opt/manageiq/vaneq
+  version=`date +%F`-`git --git-dir /var/www/miq/vmdb/.git log --oneline -1|awk -F' ' '{print $1}'`
+  sed -i "s/VaneQ 开发版/${version}/g" src/assets/views/login.vue
   npm install --registry=https://registry.npm.taobao.org
   #sed -i 's/192.168.20.160/localhost/gi' src/assets/js/config/domain.js
   #node build/build.js
